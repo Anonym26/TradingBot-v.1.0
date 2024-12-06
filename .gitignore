@@ -1,0 +1,53 @@
+# Скомпилированные Python-файлы
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+
+# Виртуальное окружение
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# Jupyter Notebook checkpoint
+.ipynb_checkpoints/
+
+# Файлы конфигурации и секретных ключей
+.env
+*.env
+
+# Логи и временные файлы
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Библиотеки и кэш pip
+pip-wheel-metadata/
+*.whl
+__pycache__/
+
+# Инструменты развертывания
+*.coverage
+*.pytest_cache/
+.tox/
