@@ -15,7 +15,7 @@ session = HTTP(
 )
 
 
-def place_market_order(symbol, qty, side="Buy"):
+def place_market_order(symbol, qty, side="Sell"):
     """
     Размещение рыночного ордера на спотовом рынке.
     """
@@ -33,7 +33,7 @@ def place_market_order(symbol, qty, side="Buy"):
 # Тест работы
 try:
     symbol = "BTCUSDT"  # Торговая пара
-    qty = 100         # Количество покупаемого актива в USDT
+    qty = 0.001         # Количество (при покупке USDT, при продаже актива)
     order_response = place_market_order(symbol=symbol, qty=qty)
     print("Ответ API:", order_response)
 except Exception as e:
