@@ -55,8 +55,12 @@ async def main():
                 await client.sign_in(password=password)
 
         # Получение entity канала
-        channel_entity = await client.get_entity(CHAT_ID)
-        print(f"Подключение к каналу: {channel_entity.title}")
+        try:
+            channel_entity = await client.get_entity(CHAT_ID)
+            print(f"Подключение к каналу: {channel_entity.title}")
+        except Exception as e:
+            logging.error(f"Ошибка подключения к каналу: {e}")
+            return
 
         # Обработка новых сообщений
         @client.on(events.NewMessage(chats=channel_entity))
