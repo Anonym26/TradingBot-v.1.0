@@ -21,7 +21,7 @@ ENV/
 *.env
 
 # Файлы сессий
-.session
+session_name.session
 
 # Логи и временные файлы
 *.log
