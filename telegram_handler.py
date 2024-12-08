@@ -35,11 +35,6 @@ class TelegramHandler:
                 await self.client.sign_in(password=password)
         logging.info("Клиент Telegram успешно запущен.")
 
-    async def list_chats(client):
-        dialogs = await client.get_dialogs()
-        for dialog in dialogs:
-            print(f"Название: {dialog.title}, ID: {dialog.id}")
-
     async def connect_to_channel(self):
         """
         Получение entity канала.
