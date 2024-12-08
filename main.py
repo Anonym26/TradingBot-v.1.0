@@ -56,7 +56,6 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        print("Программа запущена. Ждем сигналы $$$")
         asyncio.run(main())
 
     except KeyboardInterrupt:

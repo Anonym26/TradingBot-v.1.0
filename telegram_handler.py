@@ -34,6 +34,7 @@ class TelegramHandler:
                 password = input("Введите ваш пароль: ")
                 await self.client.sign_in(password=password)
         logging.info("Клиент Telegram успешно запущен.")
+        print("Клиент Telegram успешно запущен.")
 
     async def connect_to_channel(self):
         """
@@ -42,6 +43,7 @@ class TelegramHandler:
         try:
             self.channel_entity = await self.client.get_entity(self.chat_id)
             logging.info(f"Подключение к каналу {self.channel_entity.title} успешно выполнено.")
+            print(f"Подключение к каналу {self.channel_entity.title} успешно выполнено.")
         except Exception as e:
             logging.error(f"Ошибка подключения к каналу: {e}")
             raise e
