@@ -90,6 +90,9 @@ class ByBitHandler:
         try:
             symbol = f"{asset}USDT"
             asset_info = self.get_asset_info(symbol)
+            if asset_info is None:
+                logging.error(f"Актив {symbol} отсутствует или недоступен для спотовой торговли.")
+                return None
             base_precision = Decimal(asset_info["lotSizeFilter"]["basePrecision"])
             min_order_qty = Decimal(asset_info["lotSizeFilter"]["minOrderQty"])
             min_order_amt = Decimal(asset_info["lotSizeFilter"]["minOrderAmt"])
