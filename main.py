@@ -14,8 +14,8 @@ load_dotenv()
 setup_logger("main.log")
 
 # Задайте параметры подключения к Telegram
-API_ID = os.getenv("TELEGRAM_API_ID_2")
-API_HASH = os.getenv("TELEGRAM_API_HASH_2")
+API_ID = os.getenv("TELEGRAM_API_ID")
+API_HASH = os.getenv("TELEGRAM_API_HASH")
 SESSION_NAME = "session_name"
 CHAT_ID = "@ai_for_live_content"  # Укажите реальный ID или username канала
 
