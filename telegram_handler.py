@@ -34,7 +34,6 @@ class TelegramHandler:
                 password = input("Введите ваш пароль: ")
                 await self.client.sign_in(password=password)
         logging.info("Клиент Telegram успешно запущен.")
-        print("Клиент Telegram успешно запущен.")
 
     async def connect_to_channel(self):
         """
@@ -43,7 +42,6 @@ class TelegramHandler:
         try:
             self.channel_entity = await self.client.get_entity(self.chat_id)
             logging.info(f"Подключение к каналу {self.channel_entity.title} успешно выполнено.")
-            print(f"Подключение к каналу {self.channel_entity.title} успешно выполнено.")
         except Exception as e:
             logging.error(f"Ошибка подключения к каналу: {e}")
             raise e
@@ -55,19 +53,17 @@ class TelegramHandler:
         @self.client.on(events.NewMessage(chats=self.channel_entity))
         async def new_message_listener(event):
             message = event.message.message.strip()
-            logging.info(f"Новое сообщение: {message}")
+            logging.info(f"Получено сообщение: {message.splitlines()[0]}")
 
             # Проверяем на сигнал покупки
             if BUY_PATTERN.search(message):
                 asset = BUY_PATTERN.search(message).group(1)
-                logging.info(f"Обнаружен сигнал на покупку: {asset}")
                 await callback("Buy", asset)
                 return
 
             # Проверяем на сигнал продажи
             if SELL_PATTERN.search(message):
                 asset = SELL_PATTERN.search(message).group(1)
-                logging.info(f"Обнаружен сигнал на продажу: {asset}")
                 await callback("Sell", asset)
                 return
 

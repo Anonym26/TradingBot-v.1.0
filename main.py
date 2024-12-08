@@ -17,7 +17,7 @@ setup_logger("main.log")
 API_ID = os.getenv("TELEGRAM_API_ID")
 API_HASH = os.getenv("TELEGRAM_API_HASH")
 SESSION_NAME = "session_name"
-CHAT_ID = "@ZION_BOT_CH"  # Укажите реальный ID или username канала
+CHAT_ID = "@ai_for_live_content"  # Укажите реальный ID или username канала
 
 # Инициализация ByBitHandler
 bybit_handler = ByBitHandler()
@@ -29,16 +29,13 @@ async def process_signal(action, asset):
     :param asset: Название актива (например, BTC).
     """
     try:
-        logging.info(f"Получен сигнал: {action} {asset}")
-        print(f"Получен сигнал: {action} {asset}")
+        logging.info(f"Обнаружен сигнал: {action} {asset}/USDT")
 
         # Выполняем сделку на ByBit
         response = bybit_handler.execute_trade(action, asset)
-        logging.info(f"Результат сделки: {response}")
-        print(f"Результат сделки: {response}")
+        logging.info(f"Статус сделки: {response['retMsg']}. Операция: {action}. Актив: {asset} ")
     except Exception as e:
-        logging.error(f"Ошибка при обработке сигнала {action} {asset}: {e}")
-        print(f"Ошибка при обработке сигнала {action} {asset}: {e}")
+        logging.error(f"Ошибка при обработке сигнала {action} {asset}/USDT: {e}")
 
 async def main():
     """
@@ -52,12 +49,10 @@ async def main():
         await telegram_handler.run(process_signal)
     except Exception as e:
         logging.error(f"Ошибка в работе TelegramHandler: {e}")
-        print(f"Ошибка в работе TelegramHandler: {e}")
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
 
     except KeyboardInterrupt:
-        print("Работа программы завершена вручную.")
         logging.info("Работа программы завершена вручную.")

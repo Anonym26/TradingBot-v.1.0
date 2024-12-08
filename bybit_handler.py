@@ -37,7 +37,6 @@ class ByBitHandler:
                 qty=str(qty),
                 timeInForce="GTC",
             )
-            logging.info(f"Успешно размещен ордер: {response}")
             return response
         except Exception as e:
             logging.error(f"Ошибка при размещении ордера: {e}")
@@ -73,7 +72,6 @@ class ByBitHandler:
             response = self.session.get_instruments_info(category="spot", symbol=symbol)
             if response['retCode'] == 0:
                 asset_info = response['result']['list'][0]
-                logging.info(f"Получены данные об активе {symbol}: {asset_info}")
                 return asset_info
             else:
                 raise Exception(f"Ошибка получения данных об активе {symbol}: {response['retMsg']}")
@@ -102,8 +100,7 @@ class ByBitHandler:
                 if qty < min_order_amt:
                     logging.warning(f"Сумма {qty} меньше минимально допустимой {min_order_amt}.")
                     return None
-                logging.info(f"Начата покупка {asset} на сумму {qty}.")
-                return self.place_market_order(symbol, qty, side="Buy")
+                return self.place_market_order(symbol, qty, side="Buy")  # Покупка актива
 
             elif action == "Sell":
                 qty = Decimal(self.get_asset_balance(asset))
@@ -112,8 +109,7 @@ class ByBitHandler:
                     return None
                 # Округляем qty до base_precision
                 qty = qty.quantize(base_precision, rounding=ROUND_DOWN)
-                logging.info(f"Начата продажа {asset} в количестве {qty}.")
-                return self.place_market_order(symbol, qty, side="Sell")
+                return self.place_market_order(symbol, qty, side="Sell")  # Продажа актива
         except Exception as e:
             logging.error(f"Ошибка при выполнении сделки: {e}")
             raise e
