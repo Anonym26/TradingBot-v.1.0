@@ -17,7 +17,7 @@ setup_logger("main.log")
 API_ID = os.getenv("TELEGRAM_API_ID")
 API_HASH = os.getenv("TELEGRAM_API_HASH")
 SESSION_NAME = "session_name"
-CHAT_ID = "@ai_for_live_content"  # Укажите реальный ID или username канала
+CHAT_ID = "@ZION_BOT_CH"  # Укажите реальный ID или username канала
 
 # Инициализация ByBitHandler
 bybit_handler = ByBitHandler()
