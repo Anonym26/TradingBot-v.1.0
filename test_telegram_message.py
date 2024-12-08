@@ -11,13 +11,14 @@ load_dotenv()
 API_ID = os.getenv("TELEGRAM_API_ID_2")
 API_HASH = os.getenv("TELEGRAM_API_HASH_2")
 SESSION_NAME = "session_name"
-CHAT_ID = "@ZION_BOT_CH"  # ID канала
+CHAT_ID = "@ai_for_live_content"  # Замените на реальный ID или username канала
 
 # Настройка логирования
 logging.basicConfig(
-    filename="telegram_parser.log",
+    filename="logs/test_telegram_message.log",
     level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    encoding="utf-8"  # Указываем кодировку
 )
 
 # Авторизация клиента Telegram
@@ -31,8 +32,8 @@ client = TelegramClient(
 )
 
 # Регулярные выражения для поиска сигналов
-BUY_PATTERN = re.compile(r"([A-Z]+)(?=/USDT).*LONG.*BUYING COMPLETED", re.IGNORECASE)
-SELL_PATTERN = re.compile(r"([A-Z]+)(?=/USDT).*POSITION CLOSED", re.IGNORECASE)
+BUY_PATTERN = re.compile(r"([A-Z0-9]+)(?=/USDT).*?LONG.*?✅\s*BUYING COMPLETED", re.IGNORECASE | re.DOTALL)
+SELL_PATTERN = re.compile(r"([A-Z0-9]+)(?=/USDT).*?🆑\s*POSITION\s*CLOSED", re.IGNORECASE | re.DOTALL)
 
 
 async def handle_new_message(event):
@@ -63,6 +64,10 @@ async def handle_new_message(event):
         # Если сообщение не соответствует формату
         logging.info("Сообщение не содержит сигналов.")
         print("Сообщение не содержит сигналов.")
+        buy_match = BUY_PATTERN.search(message)
+        sell_match = SELL_PATTERN.search(message)
+        print(f"BUY_PATTERN: {buy_match}")
+        print(f"SELL_PATTERN: {sell_match}")
 
     except Exception as e:
         logging.error(f"Ошибка при обработке сообщения: {e}")
@@ -122,7 +127,7 @@ async def main():
             await handle_new_message(event)
 
         print("Клиент Telegram успешно запущен!")
-        logging.info("Клиент Telegram запущен и готов к работе.")
+        logging.info("Клиент Telegram успешно запущен!")
 
         # Запуск задачи проверки соединения
         asyncio.create_task(ensure_connection())
