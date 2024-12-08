@@ -1,6 +1,8 @@
 import asyncio
 import logging
 from dotenv import load_dotenv
+
+from logging_config import setup_logger
 from telegram_handler import TelegramHandler
 from bybit_handler import ByBitHandler
 import os
@@ -9,12 +11,7 @@ import os
 load_dotenv()
 
 # Настройка логирования
-logging.basicConfig(
-    filename="logs/main.log",
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    encoding="utf-8"
-)
+setup_logger("main.log")
 
 # Задайте параметры подключения к Telegram
 API_ID = os.getenv("TELEGRAM_API_ID_2")
